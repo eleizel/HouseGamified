@@ -1,0 +1,598 @@
+{
+    "niveles": [
+        {
+            "nivel": 1,
+            "xp_minimo": 0,
+            "titulo": "Aprendiz del Plumero 🧹",
+            "xp_siguiente": 300
+        },
+        {
+            "nivel": 2,
+            "xp_minimo": 300,
+            "titulo": "Cazador de Pelusas 🕵️",
+            "xp_siguiente": 800
+        },
+        {
+            "nivel": 3,
+            "xp_minimo": 800,
+            "titulo": "Guardián de la Pulcritud 🛡️",
+            "xp_siguiente": 1500
+        },
+        {
+            "nivel": 4,
+            "xp_minimo": 1500,
+            "titulo": "Maestro del Orden ⚔️",
+            "xp_siguiente": 2500
+        },
+        {
+            "nivel": 5,
+            "xp_minimo": 2500,
+            "titulo": "Leyenda del Hogar ✨",
+            "xp_siguiente": 3600
+        },
+        {
+            "nivel": 6,
+            "xp_minimo": 3600,
+            "titulo": "Enemigo del Polvo 🧼",
+            "xp_siguiente": 4900
+        },
+        {
+            "nivel": 7,
+            "xp_minimo": 4900,
+            "titulo": "Terror de los Ácaros 🐜",
+            "xp_siguiente": 6400
+        },
+        {
+            "nivel": 8,
+            "xp_minimo": 6400,
+            "titulo": "Iniciado del KH7 🧴",
+            "xp_siguiente": 8100
+        },
+        {
+            "nivel": 9,
+            "xp_minimo": 8100,
+            "titulo": "Azote de las Telarañas 🕸️",
+            "xp_siguiente": 10000
+        },
+        {
+            "nivel": 10,
+            "xp_minimo": 10000,
+            "titulo": "Limpiador con Superpoderes 🦸",
+            "xp_siguiente": 12100
+        },
+        {
+            "nivel": 11,
+            "xp_minimo": 12100,
+            "titulo": "Cazapelusas Profesional 🌪️",
+            "xp_siguiente": 14400
+        },
+        {
+            "nivel": 12,
+            "xp_minimo": 14400,
+            "titulo": "Héroe del Estropajo 🧽",
+            "xp_siguiente": 16900
+        },
+        {
+            "nivel": 13,
+            "xp_minimo": 16900,
+            "titulo": "Malabarista de Biberones 🍼",
+            "xp_siguiente": 19600
+        },
+        {
+            "nivel": 14,
+            "xp_minimo": 19600,
+            "titulo": "Peluquero de Sofás 🛋️",
+            "xp_siguiente": 22500
+        },
+        {
+            "nivel": 15,
+            "xp_minimo": 22500,
+            "titulo": "Gran Maestre de la Bayeta 🧤",
+            "xp_siguiente": 25600
+        },
+        {
+            "nivel": 16,
+            "xp_minimo": 25600,
+            "titulo": "Señor de la Vitrocerámica 🍳",
+            "xp_siguiente": 28900
+        },
+        {
+            "nivel": 17,
+            "xp_minimo": 28900,
+            "titulo": "Esquiva-Juguetes Descalzo 🧸",
+            "xp_siguiente": 32400
+        },
+        {
+            "nivel": 18,
+            "xp_minimo": 32400,
+            "titulo": "Explorador del Trastero 📦",
+            "xp_siguiente": 36100
+        },
+        {
+            "nivel": 19,
+            "xp_minimo": 36100,
+            "titulo": "Cazador de Olores 👃",
+            "xp_siguiente": 40000
+        },
+        {
+            "nivel": 20,
+            "xp_minimo": 40000,
+            "titulo": "Ninja del Mocho 🥷",
+            "xp_siguiente": 44100
+        },
+        {
+            "nivel": 21,
+            "xp_minimo": 44100,
+            "titulo": "Encantador de Gatos y Areneros 🐱",
+            "xp_siguiente": 48400
+        },
+        {
+            "nivel": 22,
+            "xp_minimo": 48400,
+            "titulo": "Purificador del Aire 🌬️",
+            "xp_siguiente": 52900
+        },
+        {
+            "nivel": 23,
+            "xp_minimo": 52900,
+            "titulo": "Exorcista de Microondas 🌋",
+            "xp_siguiente": 57600
+        },
+        {
+            "nivel": 24,
+            "xp_minimo": 57600,
+            "titulo": "Sumiller del Suavizante 🌸",
+            "xp_siguiente": 62500
+        },
+        {
+            "nivel": 25,
+            "xp_minimo": 62500,
+            "titulo": "Comendador del Brillo ✨",
+            "xp_siguiente": 67600
+        },
+        {
+            "nivel": 26,
+            "xp_minimo": 67600,
+            "titulo": "Domador de la Freidora de Aire 🍟",
+            "xp_siguiente": 72900
+        },
+        {
+            "nivel": 27,
+            "xp_minimo": 72900,
+            "titulo": "Azote de las Manchas de Grasa 💥",
+            "xp_siguiente": 78400
+        },
+        {
+            "nivel": 28,
+            "xp_minimo": 78400,
+            "titulo": "Cazador de Comida Caducada 🤢",
+            "xp_siguiente": 84100
+        },
+        {
+            "nivel": 29,
+            "xp_minimo": 84100,
+            "titulo": "Pintor de Desperfectos 🎨",
+            "xp_siguiente": 90000
+        },
+        {
+            "nivel": 30,
+            "xp_minimo": 90000,
+            "titulo": "Ingeniero del Orden Binario 📐",
+            "xp_siguiente": 96100
+        },
+        {
+            "nivel": 31,
+            "xp_minimo": 96100,
+            "titulo": "Sacerdote de los Rodapiés 🪵",
+            "xp_siguiente": 102400
+        },
+        {
+            "nivel": 32,
+            "xp_minimo": 102400,
+            "titulo": "Sultán de las Sábanas Estiradas 🛏️",
+            "xp_siguiente": 108900
+        },
+        {
+            "nivel": 33,
+            "xp_minimo": 108900,
+            "titulo": "Limpiador Sónico de Radiadores 🥵",
+            "xp_siguiente": 115600
+        },
+        {
+            "nivel": 34,
+            "xp_minimo": 115600,
+            "titulo": "Destructor de Cal del Baño 🛁",
+            "xp_siguiente": 122500
+        },
+        {
+            "nivel": 35,
+            "xp_minimo": 122500,
+            "titulo": "Filósofo de la Organización 🧠",
+            "xp_siguiente": 129600
+        },
+        {
+            "nivel": 36,
+            "xp_minimo": 129600,
+            "titulo": "Francotirador del Recogedor 🏹",
+            "xp_siguiente": 136900
+        },
+        {
+            "nivel": 37,
+            "xp_minimo": 136900,
+            "titulo": "Acróbata de Ventanas 🪟",
+            "xp_siguiente": 144400
+        },
+        {
+            "nivel": 38,
+            "xp_minimo": 144400,
+            "titulo": "Descongelador de Glaciares 🧊",
+            "xp_siguiente": 152100
+        },
+        {
+            "nivel": 39,
+            "xp_minimo": 152100,
+            "titulo": "Hacker de los Enchufes 🔌",
+            "xp_siguiente": 160000
+        },
+        {
+            "nivel": 40,
+            "xp_minimo": 160000,
+            "titulo": "Señor Colonial de la Cocina 🏰",
+            "xp_siguiente": 168100
+        },
+        {
+            "nivel": 41,
+            "xp_minimo": 168100,
+            "titulo": "Erradicador de Pelos de Gato 🐈‍⬛",
+            "xp_siguiente": 176400
+        },
+        {
+            "nivel": 42,
+            "xp_minimo": 176400,
+            "titulo": "Arquitecto de Cojines 🛋️",
+            "xp_siguiente": 184900
+        },
+        {
+            "nivel": 43,
+            "xp_minimo": 184900,
+            "titulo": "Ranger de la Planta de Arriba ⛰️",
+            "xp_siguiente": 193600
+        },
+        {
+            "nivel": 44,
+            "xp_minimo": 193600,
+            "titulo": "Desinfectador Alfa ☣️",
+            "xp_siguiente": 202500
+        },
+        {
+            "nivel": 45,
+            "xp_minimo": 202500,
+            "titulo": "Chamán del Bicarbonato 🧪",
+            "xp_siguiente": 211600
+        },
+        {
+            "nivel": 46,
+            "xp_minimo": 211600,
+            "titulo": "Limpia-Pomos de Élite 🚪",
+            "xp_siguiente": 220900
+        },
+        {
+            "nivel": 47,
+            "xp_minimo": 220900,
+            "titulo": "Guerrero de los Azulejos 🧱",
+            "xp_siguiente": 230400
+        },
+        {
+            "nivel": 48,
+            "xp_minimo": 230400,
+            "titulo": "Alquimista del Vinagre de Limpieza 🍯",
+            "xp_siguiente": 240100
+        },
+        {
+            "nivel": 49,
+            "xp_minimo": 240100,
+            "titulo": "Cazador de Manchas Fantasma 👻",
+            "xp_siguiente": 250000
+        },
+        {
+            "nivel": 50,
+            "xp_minimo": 250000,
+            "titulo": "Gran Gurú del Orden Doméstico 🧘",
+            "xp_siguiente": 260100
+        },
+        {
+            "nivel": 51,
+            "xp_minimo": 260100,
+            "titulo": "Amo de las Cortinas Voladoras 🍃",
+            "xp_siguiente": 270400
+        },
+        {
+            "nivel": 52,
+            "xp_minimo": 270400,
+            "titulo": "Espeleólogo Detrás del Sofá 🔦",
+            "xp_siguiente": 280900
+        },
+        {
+            "nivel": 53,
+            "xp_minimo": 280900,
+            "titulo": "Volteador Profesional de Colchones 🏋️",
+            "xp_siguiente": 291600
+        },
+        {
+            "nivel": 54,
+            "xp_minimo": 291600,
+            "titulo": "Acróbata de Lámparas de Techo 💡",
+            "xp_siguiente": 302500
+        },
+        {
+            "nivel": 55,
+            "xp_minimo": 302500,
+            "titulo": "Domador de Persianas Atascadas 🦖",
+            "xp_siguiente": 313600
+        },
+        {
+            "nivel": 56,
+            "xp_minimo": 313600,
+            "titulo": "Susurrador de Filtros de Aire 🥶",
+            "xp_siguiente": 324900
+        },
+        {
+            "nivel": 57,
+            "xp_minimo": 324900,
+            "titulo": "Azote del Congelador Ártico 🥶",
+            "xp_siguiente": 336400
+        },
+        {
+            "nivel": 58,
+            "xp_minimo": 336400,
+            "titulo": "Hércules Mueve-Frigoríficos 💪",
+            "xp_siguiente": 348100
+        },
+        {
+            "nivel": 59,
+            "xp_minimo": 348100,
+            "titulo": "Guardián de la Pureza del Acuario 🐟",
+            "xp_siguiente": 360000
+        },
+        {
+            "nivel": 60,
+            "xp_minimo": 360000,
+            "titulo": "Comandante Suprema de la Mopa 🎖️",
+            "xp_siguiente": 372100
+        },
+        {
+            "nivel": 61,
+            "xp_minimo": 372100,
+            "titulo": "Cazador de Pelusas Supersónico 🏎️",
+            "xp_siguiente": 384400
+        },
+        {
+            "nivel": 62,
+            "xp_minimo": 384400,
+            "titulo": "Buscador de Calcetines Perdidos 🧦",
+            "xp_siguiente": 396900
+        },
+        {
+            "nivel": 63,
+            "xp_minimo": 396900,
+            "titulo": "Desintegrador de Moho Emérito 🍄",
+            "xp_siguiente": 409600
+        },
+        {
+            "nivel": 64,
+            "xp_minimo": 409600,
+            "titulo": "Inmune a los Olores del Cubo 🤢",
+            "xp_siguiente": 422500
+        },
+        {
+            "nivel": 65,
+            "xp_minimo": 422500,
+            "titulo": "Ingeniero de Doblar Sábanas Bajeras 🤯",
+            "xp_siguiente": 435600
+        },
+        {
+            "nivel": 66,
+            "xp_minimo": 435600,
+            "titulo": "Monje Zen del Lavavajillas 🍽️",
+            "xp_siguiente": 448900
+        },
+        {
+            "nivel": 67,
+            "xp_minimo": 448900,
+            "titulo": "Azote de las Manchas Secretas 🕵️‍♂️",
+            "xp_siguiente": 462400
+        },
+        {
+            "nivel": 68,
+            "xp_minimo": 462400,
+            "titulo": "Pacificador del Despacho Caótico 🗄️",
+            "xp_siguiente": 476100
+        },
+        {
+            "nivel": 69,
+            "xp_minimo": 476100,
+            "titulo": "Gran Táctico de la Colada 🧺",
+            "xp_siguiente": 490000
+        },
+        {
+            "nivel": 70,
+            "xp_minimo": 490000,
+            "titulo": "Paladín del Desinfectante Total ⚔️",
+            "xp_siguiente": 504100
+        },
+        {
+            "nivel": 71,
+            "xp_minimo": 504100,
+            "titulo": "Especialista en Esquinas Olvidadas 📐",
+            "xp_siguiente": 518400
+        },
+        {
+            "nivel": 72,
+            "xp_minimo": 518400,
+            "titulo": "Cazador de Polvillo en Suspensión 🌌",
+            "xp_siguiente": 532900
+        },
+        {
+            "nivel": 73,
+            "xp_minimo": 532900,
+            "titulo": "Señor del Brillo de los Espejos 🪞",
+            "xp_siguiente": 547600
+        },
+        {
+            "nivel": 74,
+            "xp_minimo": 547600,
+            "titulo": "Terror de los Cristales Sucios 🧼",
+            "xp_siguiente": 562500
+        },
+        {
+            "nivel": 75,
+            "xp_minimo": 562500,
+            "titulo": "Archimago de la Organización Absoluta 🧙‍♂️",
+            "xp_siguiente": 577600
+        },
+        {
+            "nivel": 76,
+            "xp_minimo": 577600,
+            "titulo": "Destructor de Telarañas Ancestrales 🕷️",
+            "xp_siguiente": 592900
+        },
+        {
+            "nivel": 77,
+            "xp_minimo": 592900,
+            "titulo": "Explorador del Lado Oculto de la TV 📺",
+            "xp_siguiente": 608400
+        },
+        {
+            "nivel": 78,
+            "xp_minimo": 608400,
+            "titulo": "Purificador de Grifos Cromados 🚰",
+            "xp_siguiente": 624100
+        },
+        {
+            "nivel": 79,
+            "xp_minimo": 624100,
+            "titulo": "Aniquilador de Bacterias de Fregadero 🦠",
+            "xp_siguiente": 640000
+        },
+        {
+            "nivel": 80,
+            "xp_minimo": 640000,
+            "titulo": "Gran Shogun de la Limpieza Profunda 🏯",
+            "xp_siguiente": 656100
+        },
+        {
+            "nivel": 81,
+            "xp_minimo": 656100,
+            "titulo": "Inmune al Polvo del Techo 🏗️",
+            "xp_siguiente": 672400
+        },
+        {
+            "nivel": 82,
+            "xp_minimo": 672400,
+            "titulo": "Viento Divino Oler-a-Limpio 🍃",
+            "xp_siguiente": 688900
+        },
+        {
+            "nivel": 83,
+            "xp_minimo": 688900,
+            "titulo": "Alineador de Tarros de Especias 🧂",
+            "xp_siguiente": 705600
+        },
+        {
+            "nivel": 84,
+            "xp_minimo": 705600,
+            "titulo": "Exterminador de Huellas en Puertas 🖐️",
+            "xp_siguiente": 722500
+        },
+        {
+            "nivel": 85,
+            "xp_minimo": 722500,
+            "titulo": "Señor Supremo del Armario Perfecto 👔",
+            "xp_siguiente": 739600
+        },
+        {
+            "nivel": 86,
+            "xp_minimo": 739600,
+            "titulo": "Ojo de Halcón para las Migas 👀",
+            "xp_siguiente": 756900
+        },
+        {
+            "nivel": 87,
+            "xp_minimo": 756900,
+            "titulo": "Desinfectador de Nivel Radiológico ☢️",
+            "xp_siguiente": 774400
+        },
+        {
+            "nivel": 88,
+            "xp_minimo": 774400,
+            "titulo": "Cazador Definitivo de Pelos de Mascota 🐕",
+            "xp_siguiente": 792100
+        },
+        {
+            "nivel": 89,
+            "xp_minimo": 792100,
+            "titulo": "Azote del Desorden Cuántico ⚛️",
+            "xp_siguiente": 810000
+        },
+        {
+            "nivel": 90,
+            "xp_minimo": 810000,
+            "titulo": "Deidad de la Pulcritud Doméstica 👑",
+            "xp_siguiente": 828100
+        },
+        {
+            "nivel": 91,
+            "xp_minimo": 828100,
+            "titulo": "Soberano del Brillo de Azulejo 💎",
+            "xp_siguiente": 846400
+        },
+        {
+            "nivel": 92,
+            "xp_minimo": 846400,
+            "titulo": "Avatar del Aroma a Limón 🍋",
+            "xp_siguiente": 864900
+        },
+        {
+            "nivel": 93,
+            "xp_minimo": 864900,
+            "titulo": "Entidad Anti-Grasa Suprema 🌌",
+            "xp_siguiente": 883600
+        },
+        {
+            "nivel": 94,
+            "xp_minimo": 883600,
+            "titulo": "Azote Absoluto de las Pelusas Rebeldes 🌪️",
+            "xp_siguiente": 902500
+        },
+        {
+            "nivel": 95,
+            "xp_minimo": 902500,
+            "titulo": "Ser de Luz Sin Una Sola Miga 🕯️",
+            "xp_siguiente": 921600
+        },
+        {
+            "nivel": 96,
+            "xp_minimo": 921600,
+            "titulo": "Arquitecto del Espacio-Tiempo del Trastero 🌌",
+            "xp_siguiente": 940900
+        },
+        {
+            "nivel": 97,
+            "xp_minimo": 940900,
+            "titulo": "Emperador Intergaláctico del Orden 🪐",
+            "xp_siguiente": 960400
+        },
+        {
+            "nivel": 98,
+            "xp_minimo": 960400,
+            "titulo": "Semi-Dios del Microondas Reluciente ⚡",
+            "xp_siguiente": 980100
+        },
+        {
+            "nivel": 99,
+            "xp_minimo": 980100,
+            "titulo": "Tomb Raider de la Limpieza Extrema 👑",
+            "xp_siguiente": null
+        }
+    ]
+}

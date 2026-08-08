@@ -1,0 +1,258 @@
+{
+    "usuarios": {
+        "Sergio": {
+            "xp": 290,
+            "nivel": 1,
+            "historial": [
+                {
+                    "tarea": "Hacer la cama",
+                    "xp": 10,
+                    "fecha": "2026-08-08 11:30",
+                    "categoria": "☀️ Tareas Diarias"
+                },
+                {
+                    "tarea": "Ventilar la casa",
+                    "xp": 5,
+                    "fecha": "2026-08-08 11:31",
+                    "categoria": "☀️ Tareas Diarias"
+                },
+                {
+                    "tarea": "Limpiar el arenero",
+                    "xp": 10,
+                    "fecha": "2026-08-08 12:42",
+                    "categoria": "☀️ Tareas Diarias"
+                },
+                {
+                    "tarea": "Desinfectar el arenero",
+                    "xp": 30,
+                    "fecha": "2026-08-08 12:43",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Quitar el polvo del despacho",
+                    "xp": 20,
+                    "fecha": "2026-08-08 12:49",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Barrer y fregar la planta de arriba",
+                    "xp": 40,
+                    "fecha": "2026-08-08 16:00",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Limpiar el baño completo",
+                    "xp": 50,
+                    "fecha": "2026-08-08 16:34",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Quitar el polvo del dormitorio",
+                    "xp": 20,
+                    "fecha": "2026-08-08 16:34",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Limpiar cuarto de baño",
+                    "xp": 20,
+                    "fecha": "2026-08-08 16:34",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Limpiar el baño de arriba completo",
+                    "xp": 50,
+                    "fecha": "2026-08-08 16:47",
+                    "categoria": "🗓️ Tareas Mensuales"
+                },
+                {
+                    "tarea": "Limpiar el sofá y rascador del gato (aspirar)",
+                    "xp": 30,
+                    "fecha": "2026-08-08 19:17",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Bajar la basura",
+                    "xp": 5,
+                    "fecha": "2026-08-08 21:51",
+                    "categoria": "☀️ Tareas Diarias"
+                }
+            ],
+            "puntos": 290,
+            "recompensas": []
+        },
+        "Raquel": {
+            "xp": 314,
+            "nivel": 2,
+            "historial": [
+                {
+                    "tarea": "Despejar la mesa baja del salón",
+                    "xp": 10,
+                    "fecha": "2026-08-08 11:19",
+                    "categoria": "☀️ Tareas Diarias"
+                },
+                {
+                    "tarea": "Barrer el suelo",
+                    "xp": 10,
+                    "fecha": "2026-08-08 11:21",
+                    "categoria": "☀️ Tareas Diarias"
+                },
+                {
+                    "tarea": "Limpiar la encimera",
+                    "xp": 10,
+                    "fecha": "2026-08-08 11:21",
+                    "categoria": "☀️ Tareas Diarias"
+                },
+                {
+                    "tarea": "Limpiar la vitro",
+                    "xp": 10,
+                    "fecha": "2026-08-08 11:21",
+                    "categoria": "☀️ Tareas Diarias"
+                },
+                {
+                    "tarea": "Limpiar el acuario",
+                    "xp": 50,
+                    "fecha": "2026-08-08 11:21",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Limpiar la cocina (incluyendo puertas de armarios)",
+                    "xp": 50,
+                    "fecha": "2026-08-08 11:21",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Quitar el polvo del salón",
+                    "xp": 20,
+                    "fecha": "2026-08-08 11:21",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Limpiar el recogedor",
+                    "xp": 10,
+                    "fecha": "2026-08-08 11:22",
+                    "categoria": "🗓️ Tareas Mensuales"
+                },
+                {
+                    "tarea": "Limpiar los pomos de las puertas",
+                    "xp": 20,
+                    "fecha": "2026-08-08 11:22",
+                    "categoria": "🗓️ Tareas Mensuales"
+                },
+                {
+                    "tarea": "Suelo de la cocina",
+                    "xp": 20,
+                    "fecha": "2026-08-08 11:29",
+                    "categoria": "☀️ Tareas Diarias"
+                },
+                {
+                    "tarea": "Limpiar frontal lavadora y horno",
+                    "xp": 30,
+                    "fecha": "2026-08-08 11:30",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Reponer rollos papel higiénico",
+                    "xp": 4,
+                    "fecha": "2026-08-08 18:35",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Limpiar polvo de los juguetes",
+                    "xp": 30,
+                    "fecha": "2026-08-08 18:35",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Limpiar y desinfectar el fregadero",
+                    "xp": 25,
+                    "fecha": "2026-08-08 19:48",
+                    "categoria": "📅 Tareas Semanales"
+                },
+                {
+                    "tarea": "Fregar cacharros y biberones",
+                    "xp": 15,
+                    "fecha": "2026-08-08 19:51",
+                    "categoria": "☀️ Tareas Diarias"
+                }
+            ],
+            "puntos": 314,
+            "recompensas": []
+        }
+    },
+    "recompensas_canjeadas": [],
+    "cuentas": {
+        "sergio": {
+            "name": "Sergio",
+            "email": "sergio@house-gamified.local",
+            "password": "$2b$12$qjmwcaPLNzilzPTIR18jyeXtz1STyQDk84wg3.ONonqVF3kC/qEFy",
+            "role": "admin",
+            "logged_in": true,
+            "failed_login_attempts": 0
+        },
+        "raquel": {
+            "name": "Raquel",
+            "email": "raquel@house-gamified.local",
+            "password": "$2b$12$qjmwcaPLNzilzPTIR18jyeXtz1STyQDk84wg3.ONonqVF3kC/qEFy",
+            "role": "admin",
+            "logged_in": true
+        }
+    },
+    "tareas_personalizadas": [
+        {
+            "id": "9aced874445540e1989193042001c096",
+            "nombre": "Suelo de la cocina",
+            "xp": 20,
+            "periodo": "daily"
+        },
+        {
+            "id": "b09aceb5a9fc432bba45ed7a6a3f712e",
+            "nombre": "Limpiar frontal lavadora y horno",
+            "xp": 30,
+            "periodo": "weekly"
+        },
+        {
+            "id": "7a85814c8c3f4086ae1871a0cffbff67",
+            "nombre": "Limpiar polvo aire acondicionado",
+            "xp": 50,
+            "periodo": "monthly"
+        },
+        {
+            "id": "729f5530b8714ee18fc04fbf0e42af62",
+            "nombre": "Limpiar polvo de los juguetes",
+            "xp": 30,
+            "periodo": "weekly"
+        },
+        {
+            "id": "520cef3d620f4fc58e9fd27b3d95bf81",
+            "nombre": "Limpiar cuarto de baño",
+            "xp": 20,
+            "periodo": "weekly",
+            "repetible": true,
+            "max_repeticiones": 2
+        },
+        {
+            "id": "240fee4eb7b74b429300c600f86dd9ea",
+            "nombre": "Reponer rollos papel higiénico",
+            "xp": 4,
+            "periodo": "weekly",
+            "repetible": false,
+            "max_repeticiones": 1
+        },
+        {
+            "id": "5da8e794c5c84e0d99def5c9f7b8f1bb",
+            "nombre": "Cambiar funda sillón",
+            "xp": 15,
+            "periodo": "monthly",
+            "repetible": false,
+            "max_repeticiones": 1
+        },
+        {
+            "id": "fbe093c7ed124ffbbdc2d0926d1eac67",
+            "nombre": "Bajar la basura",
+            "xp": 5,
+            "periodo": "daily",
+            "repetible": false,
+            "max_repeticiones": 1
+        }
+    ]
+}
