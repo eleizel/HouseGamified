@@ -3,6 +3,9 @@ import bcrypt
 from datetime import datetime
 from core.data_manager import guardar_datos
 from core.game_logic import calcular_nivel
+from core.logger_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def render_sidebar(datos, username, authenticator):
@@ -45,6 +48,7 @@ def render_sidebar(datos, username, authenticator):
               "role": "player",
           }
           guardar_datos(datos)
+          logger.info(f"Nuevo jugador creado: {nombre_jugador} (username: {username_nuevo})")
           st.success(f"Jugador {nombre_jugador} creado.")
           st.rerun()
 
@@ -88,6 +92,7 @@ def render_sidebar(datos, username, authenticator):
             "fecha": recompensa["fecha_disfrutada"],
         })
         guardar_datos(datos)
+        logger.info(f"Recompensa marcada como disfrutada por {usuario_actual}: {recompensa['recompensa']}")
         st.sidebar.success("Recompensa marcada como disfrutada.")
         st.rerun()
   else:

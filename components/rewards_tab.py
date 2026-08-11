@@ -2,6 +2,9 @@ import streamlit as st
 from datetime import datetime
 from core.data_manager import guardar_datos
 from core.game_logic import RECOMPENSAS
+from core.logger_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def render_rewards_tab(datos, usuario_actual):
@@ -19,6 +22,7 @@ def render_rewards_tab(datos, usuario_actual):
     with col3:
       puede_comprar = puntos_actual >= rec["coste"]
       if st.button(f"🛒 Canjear", key=f"rec_{idx}", disabled=not puede_comprar):
+        logger.info(f"Usuario {usuario_actual} está canjeando recompensa: {rec['nombre']} (coste: {rec['coste']} puntos)")
         info_user["puntos"] -= rec["coste"]
         fecha_canje = datetime.now().strftime("%Y-%m-%d %H:%M")
         info_user["recompensas"].append({
@@ -40,6 +44,7 @@ def render_rewards_tab(datos, usuario_actual):
             "fecha": datetime.now().strftime("%Y-%m-%d %H:%M"),
         })
         guardar_datos(datos)
+        logger.info(f"Recompensa '{rec['nombre']}' canjeada con éxito por {usuario_actual}. Puntos restantes: {info_user['puntos']}")
         st.snow()
         st.success(f"¡Recompensa '{rec['nombre']}' canjeada!")
         st.rerun()

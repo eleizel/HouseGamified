@@ -2,6 +2,9 @@ import streamlit as st
 import uuid
 from core.data_manager import guardar_datos
 from core.game_logic import PERIODOS, NOMBRES_PERIODOS
+from core.logger_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def render_admin_tab(datos):
@@ -47,6 +50,7 @@ def render_admin_tab(datos):
           ),
       })
       guardar_datos(datos)
+      logger.info(f"Tarea personalizada creada: {nombre_nueva_tarea} (periodo: {periodo_nueva_tarea}, XP: {xp_nueva_tarea})")
       st.success("Tarea creada correctamente.")
       st.rerun()
 
@@ -103,15 +107,18 @@ def render_admin_tab(datos):
             ),
         })
         guardar_datos(datos)
+        logger.info(f"Tarea personalizada actualizada: ID {tarea_seleccionada['id']}, nuevo nombre: {nombre_editado}")
         st.success("Tarea actualizada correctamente.")
         st.rerun()
 
     confirmar_eliminacion = st.checkbox("Confirmo que quiero eliminar esta tarea")
     if st.button("Eliminar tarea", disabled=not confirmar_eliminacion):
-      datos["tareas_personalizadas"] = [
-          tarea for tarea in tareas_personalizadas
-          if tarea["id"] != tarea_seleccionada["id"]
-      ]
-      guardar_datos(datos)
-      st.success("Tarea eliminada correctamente.")
-      st.rerun()
+        logger.info(f"Eliminando tarea personalizada: {tarea_seleccionada.get('nombre')} (ID: {tarea_seleccionada.get('id')})")
+        datos["tareas_personalizadas"] = [
+            tarea for tarea in tareas_personalizadas
+            if tarea["id"] != tarea_seleccionada["id"]
+        ]
+        guardar_datos(datos)
+        logger.info("Tarea personalizada eliminada correctamente.")
+        st.success("Tarea eliminada correctamente.")
+        st.rerun()

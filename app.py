@@ -4,6 +4,10 @@ import streamlit_authenticator as stauth
 # Core imports
 from core.data_manager import cargar_datos
 from core.game_logic import incorporar_tareas_personalizadas
+from core.logger_config import get_logger
+
+logger = get_logger(__name__)
+logger.info("Iniciando aplicación Streamlit de HouseGamified...")
 
 # Components imports
 from components.sidebar import render_sidebar
@@ -57,14 +61,17 @@ else:
   username = st.session_state.get("username")
 
 if estado_autenticacion is False:
+  logger.warning("Intento de inicio de sesión fallido: usuario o contraseña incorrectos.")
   st.error("Usuario o contraseña incorrectos.")
   st.stop()
 if estado_autenticacion is not True:
+  logger.info("Esperando credenciales de usuario...")
   st.info("Introduce tus credenciales para continuar.")
   st.stop()
 
 cuenta_actual = datos["cuentas"][username]
 usuario_actual = cuenta_actual["name"]
+logger.info(f"Usuario autenticado exitosamente: {username} ({usuario_actual}), rol: {cuenta_actual.get('role')}")
 
 # Renderizar sidebar
 render_sidebar(datos, username, authenticator)
@@ -85,6 +92,8 @@ etiquetas_tabs = [
 
 if cuenta_actual.get("role") == "admin":
   etiquetas_tabs.append("⚙️ Administrar Tareas")
+
+logger.info(f"Renderizando pestañas principales para {usuario_actual}...")
 
 tabs = st.tabs(etiquetas_tabs)
 tab1, tab2, tab3, tab4 = tabs[:4]

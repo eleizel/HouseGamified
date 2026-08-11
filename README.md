@@ -183,3 +183,69 @@ You can fully customize the level progression and titles to match your household
 ## 🛡️ License
 
 This project is open-source and available under the [MIT License](LICENSE) (or any license your household/team prefers). Enjoy a cleaner, happier, and more playful home! Game on! 🎮🏡
+
+
+
+## ?? Google Sheets Integration (Alternative Data Store)
+
+Home Quest supports storing and syncing all household gamification data directly inside a **Google Sheet** document! This integration allows you to have a secure cloud backup, view raw history entries easily on Google Drive, and edit data from anywhere.
+
+It is implemented using the official Streamlit `st-gsheets-connection` library and our custom, robust transactional mapping.
+
+### ?? Why a Service Account is Required
+Google deprecated the old username/password (ClientLogin) API access in 2015 for security reasons. Programs must now connect using secure OAuth 2.0 or a **Service Account** (a secure robot account generated from your Google Cloud Console).
+
+We have implemented a **seamless fallback logic**:
+* If Google Sheets is not yet configured, the app will display a friendly warning in the sidebar and **automatically fall back** to using your local `gamificacion_datos.json` file.
+* Once you configure the connection, it will automatically connect, load, and save directly to Google Sheets!
+
+---
+
+### ??? Step-by-Step Google Sheets Setup Guide
+
+Follow these steps to connect your Home Quest application to your Google account:
+
+#### 1. Create a Google Sheet
+1. Log into your Google account (e.g., `seg.nac@gmail.com`).
+2. Go to [Google Sheets](https://sheets.google.com) and create a brand-new blank spreadsheet.
+3. Name the spreadsheet (for example: `Home Quest Data`).
+4. Copy the URL of your spreadsheet. It will look like this: `https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID_HERE/edit#gid=0`.
+5. The alphanumeric string between `/d/` and `/edit` is your `SPREADSHEET_ID`.
+
+#### 2. Create a Google Cloud Project & Service Account Key
+To enable the application to read/write, you need to generate service account credentials:
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project (e.g., name it `HomeQuest`).
+3. In the sidebar, search for **API Library** and enable:
+   *   **Google Sheets API**
+   *   **Google Drive API**
+4. Navigate to **IAM & Admin** > **Service Accounts**.
+5. Click **+ Create Service Account**, fill in a name (e.g., `homequest-connector`), and click **Create and Continue**.
+6. On the final step, click **Done**.
+7. In the list, click on your newly created service account email.
+8. Go to the **Keys** tab, click **Add Key** > **Create new key**, select **JSON**, and click **Create**.
+9. A JSON file will automatically download to your computer.
+
+#### 3. Share the Google Sheet with the Service Account
+Open your Google Sheet, click **Share** in the top right, paste the `client_email` address found in your downloaded JSON file (e.g., `homequest-connector@...gserviceaccount.com`), give it **Editor** permissions, and click **Send**.
+
+#### 4. Configure Your Streamlit Secrets
+Open `.streamlit/secrets.toml` in your project folder and replace the placeholders with the actual values from your downloaded JSON file and your Google Sheet URL:
+
+```toml
+[connections.gsheets]
+spreadsheet = \"https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID_HERE\"
+
+type = \"service_account\"
+project_id = \"your-gcp-project-id\"
+private_key_id = \"your-private-key-id\"
+private_key = \"-----BEGIN PRIVATE KEY-----\\nyour-long-private-key-here\\n-----END PRIVATE KEY-----\\n\"
+client_email = \"your-service-account-email@your-project-id.iam.gserviceaccount.com\"
+client_id = \"your-client-id\"
+auth_uri = \"https://accounts.google.com/o/oauth2/auth\"
+token_uri = \"https://oauth2.google.com/token\"
+auth_provider_x509_cert_url = \"https://www.googleapis.com/oauth2/v1/certs\"
+client_x509_cert_url = \"https://www.googleapis.com/robot/v1/metadata/x509/your-service-account-email%40your-project-id.iam.gserviceaccount.com\"
+```
+
+*Note: Make sure that in the `private_key` value, the actual newline characters are replaced with literal `\n` characters so that it fits neatly on a single line in TOML.*

@@ -8,6 +8,9 @@ from core.game_logic import (
     veces_completada_en_periodo,
     calcular_nivel,
 )
+from core.logger_config import get_logger
+
+logger = get_logger(__name__)
 
 
 @st.dialog("Confirmar finalización de misión")
@@ -17,12 +20,14 @@ def confirmar_tarea_dialog(tarea, categoria, usuario_actual):
   col1, col2 = st.columns(2)
   with col1:
     if st.button("Sí, confirmar", use_container_width=True, type="primary"):
+      logger.info(f"Usuario {usuario_actual} confirmó completación de misión: {tarea['nombre']} ({categoria}), XP: {tarea['xp']}")
       datos = cargar_datos()
       st.session_state.datos = datos
       info_user = datos["usuarios"][usuario_actual]
       if veces_completada_en_periodo(
           datos, tarea["nombre"], categoria, datetime.now()
       ) >= limite_tarea(tarea):
+        logger.warning(f"Intento de completar tarea con límite alcanzado: {tarea['nombre']}")
         st.warning("Esta tarea ya ha alcanzado su límite de completaciones.")
         st.rerun()
       info_user["xp"] += tarea["xp"]
@@ -35,11 +40,13 @@ def confirmar_tarea_dialog(tarea, categoria, usuario_actual):
           "categoria": categoria,
       })
       guardar_datos(datos)
+      logger.info(f"Misión completada registrada para {usuario_actual}. Nuevo XP: {info_user['xp']}, Nivel: {info_user['nivel']}")
       st.balloons()
       st.success(f"¡+{tarea['xp']} XP y puntos para {usuario_actual}!")
       st.rerun()
   with col2:
     if st.button("Cancelar", use_container_width=True):
+      logger.debug(f"Usuario {usuario_actual} canceló la confirmación de misión.")
       st.rerun()
 
 

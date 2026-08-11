@@ -2,6 +2,9 @@ import json
 import os
 import copy
 from datetime import datetime
+from core.logger_config import get_logger
+
+logger = get_logger(__name__)
 
 LEVELS_FILE = "niveles.json"
 
@@ -93,8 +96,11 @@ NOMBRES_PERIODOS = {
 
 
 def cargar_niveles():
+  logger.info(f"Cargando niveles desde {LEVELS_FILE}...")
   with open(LEVELS_FILE, "r", encoding="utf-8") as f:
-    return json.load(f)["niveles"]
+    niveles = json.load(f)["niveles"]
+    logger.info(f"Se cargaron {len(niveles)} niveles exitosamente.")
+    return niveles
 
 
 NIVELES = cargar_niveles()
@@ -102,12 +108,14 @@ NIVELES = cargar_niveles()
 
 def calcular_nivel(xp):
   """Calcula el nivel usando la progresión configurable de niveles.json."""
+  logger.debug(f"Calculando nivel para XP: {xp}")
   nivel_actual = NIVELES[0]
   for nivel in NIVELES:
     if xp >= nivel["xp_minimo"]:
       nivel_actual = nivel
     else:
       break
+  logger.debug(f"Nivel calculado: {nivel_actual['nivel']} ({nivel_actual['titulo']})")
   return (
       nivel_actual["nivel"],
       nivel_actual["titulo"],
@@ -168,10 +176,12 @@ def limite_tarea(tarea):
 
 def incorporar_tareas_personalizadas(datos):
   """Añade las tareas guardadas a sus categorías periódicas."""
+  logger.info("Incorporando tareas personalizadas...")
   # Restaurar las tareas bases en la misma instancia de diccionario (mutacion in-place)
   for cat in BASE_TAREAS:
     TAREAS[cat] = copy.deepcopy(BASE_TAREAS[cat])
   categorias_periodos = dict(zip(PERIODOS, list(TAREAS.keys())[:4]))
+  count = 0
   for tarea in datos.get("tareas_personalizadas", []):
     categoria = categorias_periodos.get(tarea.get("periodo"))
     if not categoria or not tarea.get("id"):
@@ -184,3 +194,5 @@ def incorporar_tareas_personalizadas(datos):
         "max_repeticiones": max(1, int(tarea.get("max_repeticiones", 1))),
         "personalizada": True,
     })
+    count += 1
+  logger.info(f"Se incorporaron {count} tareas personalizadas correctamente.")
