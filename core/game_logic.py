@@ -21,7 +21,7 @@ BASE_TAREAS = {
     ],
     "📅 Tareas Semanales": [
         {"nombre": "Cambiar las sábanas de la cama y de la cuna", "xp": 40},
-        {"nombre": "Limpiar el acuario", "xp": 50},
+        {"nombre": "Limpiar el acuario", "xp": 35},
         {"nombre": "Desinfectar el arenero", "xp": 30},
         {"nombre": "Limpiar el baño completo", "xp": 50},
         {"nombre": "Limpiar y desinfectar el fregadero", "xp": 25},
@@ -36,7 +36,9 @@ BASE_TAREAS = {
         {"nombre": "Quitar el polvo del salón", "xp": 20},
     ],
     "🗓️ Tareas Mensuales": [
-        {"nombre": "Limpiar horno, microondas y freidora de aire", "xp": 80},
+        {"nombre": "Limpiar horno", "xp": 30},
+        {"nombre": "Limpiar microondas", "xp": 25},
+        {"nombre": "Limpiar freidora de aire", "xp": 25},
         {"nombre": "Lavar las toallas", "xp": 30},
         {"nombre": "Quitar el polvo de puertas y ventanas", "xp": 40},
         {"nombre": "Limpiar las lámparas y ventiladores", "xp": 40},
@@ -46,7 +48,8 @@ BASE_TAREAS = {
         {"nombre": "Limpiar los enchufes e interruptores", "xp": 30},
         {"nombre": "Revisar frigorífico y tirar comida caducada", "xp": 40},
         {"nombre": "Limpiar los pomos de las puertas", "xp": 20},
-        {"nombre": "Limpiar los azulejos del baño y cocina", "xp": 80},
+        {"nombre": "Limpiar los azulejos del baño", "xp": 40},
+        {"nombre": "Limpiar los azulejos de la cocina", "xp": 40},
         {"nombre": "Quitar el polvo de los radiadores", "xp": 40},
     ],
     "🏆 Tareas Anuales (Grandes Desafíos)": [
