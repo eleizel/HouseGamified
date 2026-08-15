@@ -84,17 +84,27 @@ def render_sidebar(datos, username, authenticator):
           "Marcar como disfrutada",
           key=f"disfrutar_{usuario_actual}_{idx}",
       ):
+        datos = st.session_state.datos
+        username_db = next((u for u, c in datos["cuentas"].items() if c["name"] == usuario_actual), usuario_actual.lower())
+
+        fecha_disfrutada = datetime.now().strftime("%Y-%m-%d %H:%M")
+
+        # 1. Update in DB
+        mark_reward_enjoyed(username_db, recompensa["id"], fecha_disfrutada)
+
+        # 2. Update local state
         recompensa["estado"] = "completed"
-        recompensa["fecha_disfrutada"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+        recompensa["fecha_disfrutada"] = fecha_disfrutada
         info_user["historial"].append({
             "tipo": "recompensa_disfrutada",
             "recompensa": recompensa["recompensa"],
-            "fecha": recompensa["fecha_disfrutada"],
+            "fecha": fecha_disfrutada,
         })
-        guardar_datos(datos)
+
         logger.info(f"Recompensa marcada como disfrutada por {usuario_actual}: {recompensa['recompensa']}")
         st.sidebar.success("Recompensa marcada como disfrutada.")
         st.rerun()
+
   else:
     st.sidebar.caption("No hay recompensas pendientes.")
 

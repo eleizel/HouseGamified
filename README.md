@@ -43,7 +43,7 @@
 
 *   **Frontend & UI:** [Streamlit](https://streamlit.io/) (utilizing tabs, custom sidebar layout, columns, metric badges, progress bars, balloons/snow effects, and forms).
 *   **Authentication & Security:** [Streamlit Authenticator](https://github.com/moezbhatti/streamlit-authenticator) for robust login/cookie session management and [bcrypt](https://pypi.org/project/bcrypt/) for password hashing.
-*   **Data Storage:** Lightweight, filesystem-persistent JSON databases (`gamificacion_datos.json` and `niveles.json`) for effortless deployment.
+*   **Data Storage:** Lightweight, filesystem-persistent JSON databases (`gamificacion_datos.json.bck` and `niveles.json.bck`) for effortless deployment.
 
 ---
 
@@ -141,10 +141,10 @@ Out of the box, `app.py` initializes two administrator accounts within `INITIAL_
 *   **Raquel** (Admin)
 
 If you are deploying this for your own household:
-1.  On the first launch, the app creates a secure database in `gamificacion_datos.json`.
+1.  On the first launch, the app creates a secure database in `gamificacion_datos.json.bck`.
 2.  Log in with your pre-established household credentials.
 3.  As an **admin**, navigate to the sidebar to onboard other players, or use the **Administrar Tareas** tab to set up customized tasks for your household.
-4.  To change admin passwords, you can replace the hashed passwords directly in `INITIAL_ACCOUNTS` in `app.py` or modify the password hash inside the `gamificacion_datos.json` file.
+4.  To change admin passwords, you can replace the hashed passwords directly in `INITIAL_ACCOUNTS` in `app.py` or modify the password hash inside the `gamificacion_datos.json.bck` file.
 
 ---
 
@@ -156,9 +156,9 @@ If you are deploying this for your own household:
 
 ---
 
-## 🎨 Customizing Levels (`niveles.json`)
+## 🎨 Customizing Levels (`niveles.json.bck`)
 
-You can fully customize the level progression and titles to match your household's inside jokes or language. Open `niveles.json` and adjust the progression:
+You can fully customize the level progression and titles to match your household's inside jokes or language. Open `niveles.json.bck` and adjust the progression:
 
 ```json
 {
@@ -196,7 +196,7 @@ It is implemented using the official Streamlit `st-gsheets-connection` library a
 Google deprecated the old username/password (ClientLogin) API access in 2015 for security reasons. Programs must now connect using secure OAuth 2.0 or a **Service Account** (a secure robot account generated from your Google Cloud Console).
 
 We have implemented a **seamless fallback logic**:
-* If Google Sheets is not yet configured, the app will display a friendly warning in the sidebar and **automatically fall back** to using your local `gamificacion_datos.json` file.
+* If Google Sheets is not yet configured, the app will display a friendly warning in the sidebar and **automatically fall back** to using your local `gamificacion_datos.json.bck` file.
 * Once you configure the connection, it will automatically connect, load, and save directly to Google Sheets!
 
 ---
