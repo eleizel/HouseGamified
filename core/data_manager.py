@@ -1,140 +1,144 @@
-import json
 import os
+import toml
+from supabase import create_client, Client
 from core.logger_config import get_logger
 
 logger = get_logger(__name__)
 
-DATA_FILE = "gamificacion_datos.json"
+def get_supabase_client():
+    path = os.path.join(".streamlit", "secrets.toml")
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"No se encontró el archivo de secretos en {path}")
+    secrets = toml.load(path)
+    if "SUPABASE_URL" not in secrets or "SUPABASE_KEY" not in secrets:
+        raise KeyError("SUPABASE_URL y SUPABASE_KEY deben estar en secrets.toml")
+    
+    return create_client(secrets["SUPABASE_URL"], secrets["SUPABASE_KEY"])
 
-INITIAL_ACCOUNTS = {
-    "sergio": {
-        "name": "Sergio",
-        "email": "sergio@house-gamified.local",
-        "password": "$2b$12$qjmwcaPLNzilzPTIR18jyeXtz1STyQDk84wg3.ONonqVF3kC/qEFy",
-        "role": "admin",
-    },
-    "raquel": {
-        "name": "Raquel",
-        "email": "raquel@house-gamified.local",
-        "password": "$2b$12$qjmwcaPLNzilzPTIR18jyeXtz1STyQDk84wg3.ONonqVF3kC/qEFy",
-        "role": "admin",
-    },
-}
+def update_user_stats(username_db, xp_gain, puntos_gain, nivel_nuevo, log_entry):
+    supabase = get_supabase_client()
+    
+    # 1. Get current stats
+    user = supabase.table("usuarios").select("xp, puntos").eq("username", username_db).single().execute().data
+    
+    # 2. Update user stats
+    supabase.table("usuarios").update({
+        "xp": user["xp"] + xp_gain,
+        "puntos": user["puntos"] + puntos_gain,
+        "nivel": nivel_nuevo
+    }).eq("username", username_db).execute()
+    
+    # 3. Add to history
+    log_entry["username"] = username_db
+    supabase.table("historial").insert(log_entry).execute()
 
-# Estructura por defecto
-DEFAULT_DATA = {
-    "usuarios": {
-        "Sergio": {"xp": 0, "puntos": 0, "nivel": 1, "historial": [], "recompensas": []},
-        "Raquel": {"xp": 0, "puntos": 0, "nivel": 1, "historial": [], "recompensas": []},
-    },
-    "recompensas_canjeadas": [],
-    "cuentas": INITIAL_ACCOUNTS,
-    "tareas_personalizadas": [],
-}
+def redeem_reward(username_db, reward_data):
+    supabase = get_supabase_client()
+    
+    # 1. Update points
+    user = supabase.table("usuarios").select("puntos").eq("username", username_db).single().execute().data
+    supabase.table("usuarios").update({
+        "puntos": user["puntos"] - reward_data["coste"]
+    }).eq("username", username_db).execute()
+    
+    # 2. Add to recompensas_usuario
+    reward_data["username"] = username_db
+    supabase.table("recompensas_usuario").insert(reward_data).execute()
+    
+    # 3. Add to history
+    supabase.table("historial").insert({
+        "username": username_db,
+        "tipo": "recompensa_canjeada",
+        "recompensa": reward_data["recompensa"],
+        "coste": reward_data["coste"],
+        "fecha": reward_data["fecha_canje"]
+    }).execute()
 
+def mark_reward_enjoyed(username_db, recompensa_id, fecha_disfrutada):
+    supabase = get_supabase_client()
+    
+    # 1. Update reward status
+    supabase.table("recompensas_usuario").update({
+        "estado": "completed",
+        "fecha_disfrutada": fecha_disfrutada
+    }).eq("id", recompensa_id).execute()
+    
+    # 2. Add to history
+    reward = supabase.table("recompensas_usuario").select("recompensa").eq("id", recompensa_id).single().execute().data
+    supabase.table("historial").insert({
+        "username": username_db,
+        "tipo": "recompensa_disfrutada",
+        "recompensa": reward["recompensa"],
+        "fecha": fecha_disfrutada
+    }).execute()
 
-def cargar_datos_local():
-  logger.info(f"Cargando datos locales desde {DATA_FILE}...")
-  if os.path.exists(DATA_FILE):
-    with open(DATA_FILE, "r", encoding="utf-8") as f:
-      datos = json.load(f)
-      datos.setdefault("cuentas", INITIAL_ACCOUNTS.copy())
-      datos.setdefault("tareas_personalizadas", [])
-      for username, cuenta in INITIAL_ACCOUNTS.items():
-        datos["cuentas"].setdefault(username, cuenta)
-      
-      # Migración: los datos anteriores no tenían una moneda separada.
-      usuarios_sin_recompensas = {
-          nombre for nombre, usuario in datos.get("usuarios", {}).items()
-          if "recompensas" not in usuario
-      }
-      for usuario in datos.get("usuarios", {}).values():
-        usuario.setdefault("puntos", usuario.get("xp", 0))
-        usuario.setdefault("recompensas", [])
-      for recompensa in datos.get("recompensas_canjeadas", []):
-        nombre_usuario = recompensa.get("usuario")
-        if nombre_usuario not in usuarios_sin_recompensas:
-          continue
-        usuario = datos["usuarios"].get(nombre_usuario)
-        if usuario is not None:
-          usuario["recompensas"].append({
-              "recompensa": recompensa.get("recompensa", "Recompensa"),
-              "coste": recompensa.get("coste", 0),
-              "fecha_canje": recompensa.get("fecha", ""),
-              "estado": "ongoing",
-          })
-          usuario["historial"].append({
-              "tipo": "recompensa_canjeada",
-              "recompensa": recompensa.get("recompensa", "Recompensa"),
-              "coste": recompensa.get("coste", 0),
-              "fecha": recompensa.get("fecha", ""),
-          })
-      logger.info("Datos locales cargados y migrados exitosamente.")
-      return datos
-  logger.info("Archivo de datos locales no encontrado. Usando DEFAULT_DATA.")
-  return DEFAULT_DATA
+def get_all_data():
+    """
+    Simulates loading the legacy 'datos' structure from Supabase for compatibility.
+    NOTE: This is not scalable and should be replaced by granular data fetching.
+    """
+    supabase = get_supabase_client()
+    
+    # Fetch all necessary data from tables
+    usuarios_list = supabase.table("usuarios").select("*").execute().data
+    tareas_list = supabase.table("tareas").select("*").execute().data
+    recompensas_list = supabase.table("recompensas").select("*").execute().data
+    historial_list = supabase.table("historial").select("*").execute().data
+    recompensas_usuario_list = supabase.table("recompensas_usuario").select("*").execute().data
+    niveles_list = supabase.table("niveles").select("*").execute().data
 
+    # Reconstruct the legacy structure
+    datos = {
+        "usuarios": {},
+        "cuentas": {},
+        "tareas_personalizadas": [t for t in tareas_list if t["personalizada"]],
+        "recompensas_canjeadas": [], # Need to derive this from recompensas_usuario or legacy logic
+        "niveles": niveles_list
+    }
 
-def guardar_datos_local(datos):
-  logger.info(f"Guardando datos locales en {DATA_FILE}...")
-  with open(DATA_FILE, "w", encoding="utf-8") as f:
-    json.dump(datos, f, ensure_ascii=False, indent=4)
-  logger.info("Datos guardados localmente con éxito.")
+    # Map users and accounts
+    for u in usuarios_list:
+        username = u["username"]
+        display_name = u["name"]
+        
+        datos["cuentas"][username] = {
+            "name": display_name,
+            "email": u["email"],
+            "password": u["password"],
+            "role": u["role"],
+            "logged_in": u["logged_in"],
+            "failed_login_attempts": u["failed_login_attempts"]
+        }
+        
+        datos["usuarios"][display_name] = {
+            "xp": u["xp"],
+            "puntos": u["puntos"],
+            "nivel": u["nivel"],
+            "historial": [],
+            "recompensas": []
+        }
 
+    # Reconstruct history
+    for h in historial_list:
+        username = h["username"]
+        # Find display name
+        display_name = next((u["name"] for u in usuarios_list if u["username"] == username), None)
+        if display_name:
+            datos["usuarios"][display_name]["historial"].append(h)
 
+    # Reconstruct user rewards
+    for ru in recompensas_usuario_list:
+        username = ru["username"]
+        display_name = next((u["name"] for u in usuarios_list if u["username"] == username), None)
+        if display_name:
+            datos["usuarios"][display_name]["recompensas"].append(ru)
 
-import streamlit as st
-import pandas as pd
-from streamlit_gsheets import GSheetsConnection
+    return datos
 
+# --- Legacy compatibility (to be removed) ---
 def cargar_datos():
-    logger.info("Intentando cargar datos desde Google Sheets...")
-    try:
-        conn = st.connection('gsheets', type=GSheetsConnection)
-        df = conn.read(ttl=0)
-        if df is not None and not df.empty and 'key' in df.columns and 'value' in df.columns:
-            datos = {}
-            for _, row in df.iterrows():
-                key = str(row['key'])
-                val_str = str(row['value'])
-                try:
-                    datos[key] = json.loads(val_str)
-                except Exception:
-                    datos[key] = val_str
-            datos.setdefault('cuentas', INITIAL_ACCOUNTS.copy())
-            datos.setdefault('tareas_personalizadas', [])
-            for username, cuenta in INITIAL_ACCOUNTS.items():
-                datos['cuentas'].setdefault(username, cuenta)
-            for usuario in datos.get('usuarios', {}).values():
-                usuario.setdefault('puntos', usuario.get('xp', 0))
-                usuario.setdefault('recompensas', [])
-            logger.info("Datos cargados exitosamente desde Google Sheets.")
-            return datos
-    except Exception as e:
-        logger.warning(f"Google Sheets no disponible o sin conexión ({e}). Cargando desde JSON local.")
-        st.sidebar.warning(f'Cargando desde JSON local (Google Sheets no configurado o sin conexion: {e})')
-    return cargar_datos_local()
+    return get_all_data()
 
 def guardar_datos(datos):
-    logger.info("Iniciando guardado de datos...")
-    guardar_datos_local(datos)
-    try:
-        conn = st.connection('gsheets', type=GSheetsConnection)
-        rows = []
-        for key, val in datos.items():
-            rows.append({
-                'key': key,
-                'value': json.dumps(val, ensure_ascii=False)
-            })
-        df = pd.DataFrame(rows)
-        try:
-            conn.update(worksheet='GamificacionDatos', data=df)
-            logger.info("Datos actualizados en Google Sheets correctamente.")
-        except Exception:
-            try:
-                conn.create(worksheet='GamificacionDatos', data=df)
-                logger.info("Datos creados en Google Sheets correctamente.")
-            except Exception as e:
-                logger.info(f"Google Sheets es público/solo lectura (datos guardados localmente): {e}")
-    except Exception as e:
-        logger.info(f"Google Sheets no disponible para escritura (datos guardados localmente): {e}")
+    logger.warning("guardar_datos() llamado. Refactor a granular updates required.")
+    pass

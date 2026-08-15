@@ -3,7 +3,6 @@ import streamlit_authenticator as stauth
 
 # Core imports
 from core.data_manager import cargar_datos
-from core.game_logic import incorporar_tareas_personalizadas
 from core.logger_config import get_logger
 
 logger = get_logger(__name__)
@@ -35,9 +34,6 @@ datos = st.session_state.datos
 for usuario in datos.get("usuarios", {}).values():
   usuario.setdefault("puntos", usuario.get("xp", 0))
   usuario.setdefault("recompensas", [])
-
-# Incorporar tareas personalizadas en el diccionario global TAREAS
-incorporar_tareas_personalizadas(datos)
 
 # Configuración del autenticador
 authenticator = stauth.Authenticate(
@@ -91,7 +87,7 @@ etiquetas_tabs = [
 ]
 
 if cuenta_actual.get("role") == "admin":
-  etiquetas_tabs.append("⚙️ Administrar Tareas")
+  etiquetas_tabs.append("⚙️ Administración")
 
 logger.info(f"Renderizando pestañas principales para {usuario_actual}...")
 
