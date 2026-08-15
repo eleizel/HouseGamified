@@ -17,29 +17,39 @@ logger = get_logger(__name__)
 def confirmar_tarea_dialog(tarea, categoria, usuario_actual):
   st.write(f"¿Seguro que has completado la misión **{tarea['nombre']}**?")
   st.write(f"Esto te otorgará ⭐ **{tarea['xp']} XP** y puntos de recompensa.")
+  from core.data_manager import update_user_stats
+  
   col1, col2 = st.columns(2)
   with col1:
     if st.button("Sí, confirmar", use_container_width=True, type="primary"):
       logger.info(f"Usuario {usuario_actual} confirmó completación de misión: {tarea['nombre']} ({categoria}), XP: {tarea['xp']}")
-      datos = cargar_datos()
-      st.session_state.datos = datos
+
+      # Determine username_db
+      datos = st.session_state.datos
+      username_db = next((u for u, c in datos["cuentas"].items() if c["name"] == usuario_actual), usuario_actual.lower())
+
+      # 1. Update stats in DB
       info_user = datos["usuarios"][usuario_actual]
-      if veces_completada_en_periodo(
-          datos, tarea["nombre"], categoria, datetime.now()
-      ) >= limite_tarea(tarea):
-        logger.warning(f"Intento de completar tarea con límite alcanzado: {tarea['nombre']}")
-        st.warning("Esta tarea ya ha alcanzado su límite de completaciones.")
-        st.rerun()
-      info_user["xp"] += tarea["xp"]
-      info_user["puntos"] += tarea["xp"]
-      info_user["nivel"], _, _ = calcular_nivel(info_user["xp"])
-      info_user["historial"].append({
+      xp_nuevo = info_user["xp"] + tarea["xp"]
+      puntos_nuevo = info_user["puntos"] + tarea["xp"]
+      nivel_nuevo, _, _ = calcular_nivel(xp_nuevo)
+
+      log_entry = {
+          "tipo": "tarea_completada",
           "tarea": tarea["nombre"],
           "xp": tarea["xp"],
           "fecha": datetime.now().strftime("%Y-%m-%d %H:%M"),
           "categoria": categoria,
-      })
-      guardar_datos(datos)
+      }
+
+      update_user_stats(username_db, tarea["xp"], tarea["xp"], nivel_nuevo, log_entry)
+
+      # 2. Update local session state
+      info_user["xp"] = xp_nuevo
+      info_user["puntos"] = puntos_nuevo
+      info_user["nivel"] = nivel_nuevo
+      info_user["historial"].append(log_entry)
+
       logger.info(f"Misión completada registrada para {usuario_actual}. Nuevo XP: {info_user['xp']}, Nivel: {info_user['nivel']}")
       st.balloons()
       st.success(f"¡+{tarea['xp']} XP y puntos para {usuario_actual}!")
