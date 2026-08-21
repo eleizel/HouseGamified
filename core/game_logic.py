@@ -1,4 +1,5 @@
 from datetime import datetime
+import streamlit as st
 from core.logger_config import get_logger
 from core.data_manager import get_supabase_client
 
@@ -19,6 +20,7 @@ PERIODO_MAP = {
     "yearly": "🏆 Tareas Anuales (Grandes Desafíos)",
 }
 
+@st.cache_data(ttl=60)
 def fetch_db_data():
     """Fetches reference data from Supabase."""
     supabase = get_supabase_client()
@@ -27,25 +29,48 @@ def fetch_db_data():
     recompensas = supabase.table("recompensas").select("*").execute().data
     return niveles, tareas, recompensas
 
-# Data populated on module load
-NIVELES, TAREAS_DB, RECOMPENSAS = fetch_db_data()
+def get_niveles():
+    niveles, _, _ = fetch_db_data()
+    return niveles
 
-def get_tareas_structured():
+def get_tareas_db():
+    _, tareas, _ = fetch_db_data()
+    return tareas
+
+def get_recompensas():
+    _, _, recompensas = fetch_db_data()
+    return recompensas
+
+def get_tareas_structured(tareas_list=None):
     """Organizes tasks from DB into categories."""
+    if tareas_list is None:
+        tareas_list = get_tareas_db()
     structured = {nombre: [] for nombre in PERIODO_MAP.values()}
-    for t in TAREAS_DB:
+    for t in tareas_list:
         cat_nombre = PERIODO_MAP.get(t["periodo"])
         if cat_nombre:
             structured[cat_nombre].append(t)
     return structured
 
-TAREAS = get_tareas_structured()
+def __getattr__(name):
+    if name == "TAREAS":
+        return get_tareas_structured()
+    if name == "TAREAS_DB":
+        return get_tareas_db()
+    if name == "RECOMPENSAS":
+        return get_recompensas()
+    if name == "NIVELES":
+        return get_niveles()
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
 def calcular_nivel(xp):
   """Calcula el nivel usando la progresión de la DB."""
   logger.debug(f"Calculando nivel para XP: {xp}")
-  nivel_actual = NIVELES[0]
-  for nivel in NIVELES:
+  niveles = get_niveles()
+  if not niveles:
+    return (1, "Novato", None)
+  nivel_actual = niveles[0]
+  for nivel in niveles:
     if xp >= nivel["xp_minimo"]:
       nivel_actual = nivel
     else:

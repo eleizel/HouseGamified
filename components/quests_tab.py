@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import datetime
 from core.data_manager import cargar_datos, guardar_datos
 from core.game_logic import (
-    TAREAS,
+    get_tareas_structured,
     limite_tarea,
     completaciones_tarea_en_periodo,
     veces_completada_en_periodo,
@@ -62,11 +62,12 @@ def confirmar_tarea_dialog(tarea, categoria, usuario_actual):
 
 def render_quests_tab(datos, usuario_actual):
   st.header("📋 Tablón de Misiones")
-  categoria = st.selectbox("Selecciona Categoría", list(TAREAS.keys()))
+  tareas = get_tareas_structured()
+  categoria = st.selectbox("Selecciona Categoría", list(tareas.keys()))
   st.subheader(categoria)
 
   ahora = datetime.now()
-  for idx, tarea in enumerate(TAREAS[categoria]):
+  for idx, tarea in enumerate(tareas[categoria]):
     max_repeticiones = limite_tarea(tarea)
     jugadores_completaron = completaciones_tarea_en_periodo(
         datos, tarea["nombre"], categoria, ahora

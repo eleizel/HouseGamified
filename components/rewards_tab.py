@@ -1,5 +1,5 @@
 from core.data_manager import redeem_reward
-from core.game_logic import RECOMPENSAS
+from core.game_logic import get_recompensas
 from core.logger_config import get_logger
 from datetime import datetime
 import streamlit as st
@@ -13,7 +13,8 @@ def render_rewards_tab(datos, usuario_actual):
   puntos_actual = info_user["puntos"]
   st.write(f"Puntos disponibles de **{usuario_actual}**: `{puntos_actual} puntos`")
 
-  for idx, rec in enumerate(RECOMPENSAS):
+  recompensas = get_recompensas()
+  for idx, rec in enumerate(recompensas):
     col1, col2, col3 = st.columns([4, 1, 1.5])
     with col1:
       st.markdown(f"**{rec['nombre']}**")

@@ -1,7 +1,7 @@
 import streamlit as st
 import uuid
 from core.data_manager import get_supabase_client
-from core.game_logic import PERIODOS, NOMBRES_PERIODOS
+from core.game_logic import PERIODOS, NOMBRES_PERIODOS, fetch_db_data
 from core.logger_config import get_logger
 
 logger = get_logger(__name__)
@@ -54,6 +54,7 @@ def render_crud_tareas(supabase, datos):
                         "personalizada": True
                     }
                     supabase.table("tareas").insert(nueva_tarea).execute()
+                    fetch_db_data.clear()
                     st.success(f"Tarea '{nombre}' creada.")
                     st.rerun()
 
@@ -160,11 +161,13 @@ def render_crud_tareas(supabase, datos):
                         "repetible": repetible_edit,
                         "max_repeticiones": int(max_rep_edit) if repetible_edit else 1,
                     }).eq("id", tarea["id"]).execute()
+                    fetch_db_data.clear()
                     st.success("Tarea actualizada.")
                     st.rerun()
                 
                 if col_btn2.form_submit_button("Eliminar", type="primary"):
                     supabase.table("tareas").delete().eq("id", tarea["id"]).execute()
+                    fetch_db_data.clear()
                     st.success("Tarea eliminada.")
                     st.rerun()
 
@@ -204,6 +207,7 @@ def render_crud_recompensas(supabase, datos):
                         "personalizada": True
                     }
                     supabase.table("recompensas").insert(nueva_rec).execute()
+                    fetch_db_data.clear()
                     st.success(f"Recompensa '{nombre}' creada.")
                     st.rerun()
                     
@@ -287,11 +291,13 @@ def render_crud_recompensas(supabase, datos):
                         "nombre": nombre_edit.strip(),
                         "coste": int(coste_edit)
                     }).eq("id", rec["id"]).execute()
+                    fetch_db_data.clear()
                     st.success("Recompensa actualizada.")
                     st.rerun()
                     
                 if col_btn2.form_submit_button("Eliminar", type="primary"):
                     supabase.table("recompensas").delete().eq("id", rec["id"]).execute()
+                    fetch_db_data.clear()
                     st.success("Recompensa eliminada.")
                     st.rerun()
 
