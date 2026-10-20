@@ -50,6 +50,12 @@ def confirmar_tarea_dialog(tarea, categoria, usuario_actual):
       info_user["nivel"] = nivel_nuevo
       info_user["historial"].append(log_entry)
 
+      # 3. Check and grant achievements
+      from core.achievements_manager import verificar_y_otorgar_logros
+      nuevos_logros = verificar_y_otorgar_logros(username_db)
+      if nuevos_logros:
+          st.session_state.setdefault("logros_pendientes_mostrar", []).extend(nuevos_logros)
+
       logger.info(f"Misión completada registrada para {usuario_actual}. Nuevo XP: {info_user['xp']}, Nivel: {info_user['nivel']}")
       st.balloons()
       st.success(f"¡+{tarea['xp']} XP y puntos para {usuario_actual}!")

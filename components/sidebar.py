@@ -1,7 +1,7 @@
 import streamlit as st
 import bcrypt
 from datetime import datetime
-from core.data_manager import guardar_datos
+from core.data_manager import guardar_datos, mark_reward_enjoyed
 from core.game_logic import calcular_nivel
 from core.logger_config import get_logger
 
@@ -100,6 +100,12 @@ def render_sidebar(datos, username, authenticator):
             "recompensa": recompensa["recompensa"],
             "fecha": fecha_disfrutada,
         })
+
+        # 3. Check and grant achievements
+        from core.achievements_manager import verificar_y_otorgar_logros
+        nuevos_logros = verificar_y_otorgar_logros(username_db)
+        if nuevos_logros:
+            st.session_state.setdefault("logros_pendientes_mostrar", []).extend(nuevos_logros)
 
         logger.info(f"Recompensa marcada como disfrutada por {usuario_actual}: {recompensa['recompensa']}")
         st.sidebar.success("Recompensa marcada como disfrutada.")

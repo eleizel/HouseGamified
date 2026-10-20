@@ -50,6 +50,12 @@ def render_rewards_tab(datos, usuario_actual):
             "fecha": fecha_canje,
         })
 
+        # 3. Check and grant achievements
+        from core.achievements_manager import verificar_y_otorgar_logros
+        nuevos_logros = verificar_y_otorgar_logros(username_db)
+        if nuevos_logros:
+            st.session_state.setdefault("logros_pendientes_mostrar", []).extend(nuevos_logros)
+
         logger.info(f"Recompensa '{rec['nombre']}' canjeada con éxito por {usuario_actual}. Puntos restantes: {info_user['puntos']}")
         st.snow()
         st.success(f"¡Recompensa '{rec['nombre']}' canjeada!")

@@ -4,6 +4,7 @@ import streamlit_authenticator as stauth
 # Core imports
 from core.data_manager import cargar_datos
 from core.logger_config import get_logger
+from core.achievements_manager import verificar_y_otorgar_logros
 
 logger = get_logger(__name__)
 logger.info("Iniciando aplicación Streamlit de HouseGamified...")
@@ -12,9 +13,11 @@ logger.info("Iniciando aplicación Streamlit de HouseGamified...")
 from components.sidebar import render_sidebar
 from components.quests_tab import render_quests_tab
 from components.rewards_tab import render_rewards_tab
+from components.achievements_tab import render_achievements_tab
 from components.history_tab import render_history_tab
 from components.ranking_tab import render_ranking_tab
 from components.admin_tab import render_admin_tab
+from components.achievement_dialog import check_and_render_achievement_dialog
 
 # Configuración de la página
 st.set_page_config(
@@ -69,6 +72,16 @@ cuenta_actual = datos["cuentas"][username]
 usuario_actual = cuenta_actual["name"]
 logger.info(f"Usuario autenticado exitosamente: {username} ({usuario_actual}), rol: {cuenta_actual.get('role')}")
 
+# Verificación de logros al iniciar sesión
+if f"logros_verificados_login_{username}" not in st.session_state:
+    nuevos_logros = verificar_y_otorgar_logros(username)
+    if nuevos_logros:
+        st.session_state.setdefault("logros_pendientes_mostrar", []).extend(nuevos_logros)
+    st.session_state[f"logros_verificados_login_{username}"] = True
+
+# Comprobar y mostrar modal de celebración si hay logros pendientes
+check_and_render_achievement_dialog()
+
 # Renderizar sidebar
 render_sidebar(datos, username, authenticator)
 
@@ -82,6 +95,7 @@ st.caption(
 etiquetas_tabs = [
     "📋 Lista de Misiones",
     "🛍️ Tienda de Recompensas",
+    "🏆 Logros",
     "📜 Historial",
     "📊 Ranking",
 ]
@@ -92,14 +106,17 @@ if cuenta_actual.get("role") == "admin":
 logger.info(f"Renderizando pestañas principales para {usuario_actual}...")
 
 tabs = st.tabs(etiquetas_tabs)
-tab1, tab2, tab3, tab4 = tabs[:4]
-tab_admin = tabs[4] if cuenta_actual.get("role") == "admin" else None
+tab1, tab2, tab_logros, tab3, tab4 = tabs[:5]
+tab_admin = tabs[5] if cuenta_actual.get("role") == "admin" else None
 
 with tab1:
   render_quests_tab(datos, usuario_actual)
 
 with tab2:
   render_rewards_tab(datos, usuario_actual)
+
+with tab_logros:
+  render_achievements_tab(datos, usuario_actual)
 
 with tab3:
   render_history_tab(datos)
