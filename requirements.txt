@@ -7,3 +7,5 @@ st-gsheets-connection
 pandas
 
 supabase
+
+toml
